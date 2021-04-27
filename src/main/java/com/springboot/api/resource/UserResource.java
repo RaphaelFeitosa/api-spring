@@ -25,13 +25,13 @@ public class UserResource {
 
 	@GetMapping
 	public ResponseEntity<List<User>> findAll() {
-		List<User> list = userService.findAll();
+		List<User> list = this.userService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
-		User user = userService.findById(id);
+		User user = this.userService.findById(id);
 		return ResponseEntity.ok().body(user);
 
 	}
@@ -39,15 +39,15 @@ public class UserResource {
 	@PostMapping
 	public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserDTO userDTO) {
 
-		 if (userService.validateCpf(userDTO.getCpf())){
+		 if (this.userService.validateCpf(userDTO.getCpf())){
 			throw new ValidateCpfException(userDTO.getCpf());
 		 }
 
-		 if (userService.validateEmail(userDTO.getEmail())){
+		 if (this.userService.validateEmail(userDTO.getEmail())){
 			throw new ValidateEmailException(userDTO.getEmail());
 
 		 }
-		 User user = userService.insert(userDTO.toUser());
+		 User user = this.userService.insert(userDTO.toUser());
 		 URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		 return ResponseEntity.created(uri).body(new UserDTO(user));
 	}

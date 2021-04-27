@@ -20,26 +20,26 @@ public class UserService {
 	}
 
 	public List<User> findAll() {
-		return repository.findAll();
+		return this.repository.findAll();
 	}
 	
 	public User findById(Long id) {
-		Optional<User> user = repository.findById(id);
+		Optional<User> user = this.repository.findById(id);
 		return user.orElseThrow(() -> new UserNotFoundException(id));
 	}
 
 	public Boolean validateCpf(String cpf) {
-		Optional<User> user = repository.findByCpf(cpf);
+		Optional<User> user = this.repository.findByCpf(cpf);
 		return user.isPresent();
 	}
 
 	public Boolean validateEmail(String email) {
-		Optional<User> user = repository.findByEmail(email);
+		Optional<User> user = this.repository.findByEmail(email);
 		return user.isPresent();
 	}
 
 	public User insert(User user) {
-		return repository.save(user);
+		return this.repository.save(user);
 	}
 
 }

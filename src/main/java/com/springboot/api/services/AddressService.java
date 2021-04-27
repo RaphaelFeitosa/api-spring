@@ -22,16 +22,16 @@ public class AddressService {
 	}
 
 	public List<Address> findAll() {
-		return repository.findAll();
+		return this.repository.findAll();
 	}
 	
 	public Address findById(Long id) {
-		Optional<Address> address = repository.findById(id);
+		Optional<Address> address = this.repository.findById(id);
 		return address.orElseThrow(() -> new AddressNotFoundException(id));
 	}
 	
 	public Address insert(Address address) {
-		return repository.save(address);
+		return this.repository.save(address);
 	}
 
 }

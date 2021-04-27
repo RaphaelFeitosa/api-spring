@@ -13,7 +13,6 @@ public class UserDTO {
     @NotBlank(message = "{name.not.blank}")
     private String name;
 
-
     @NotBlank(message = "{email.not.blank}")
     @Email(message = "{email.not.valid}")
     private String email;

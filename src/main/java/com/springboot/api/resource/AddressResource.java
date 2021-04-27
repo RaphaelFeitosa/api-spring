@@ -38,24 +38,24 @@ public class AddressResource {
 
 	@GetMapping
 	public ResponseEntity<List<Address>> findAll() {
-		List<Address> list = addressService.findAll();
+		List<Address> list = this.addressService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<Address> findById(@PathVariable Long id){
-		Address address = addressService.findById(id);
+		Address address = this.addressService.findById(id);
 		return ResponseEntity.ok().body(address);
 	}
 	
 	@PostMapping
 	public ResponseEntity<AddressDTO> insert(@RequestBody @Valid AddressDTO addressDTO) {
-		User user = userService.findById(addressDTO.getUserId());
+		User user = this.userService.findById(addressDTO.getUserId());
 
 		if(user == null) {
 			throw new UserNotFoundException(addressDTO.getUserId());
 		}
-		Address address = addressService.insert(addressDTO.toAddress());
+		Address address = this.addressService.insert(addressDTO.toAddress());
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(address.getId()).toUri();
 		return ResponseEntity.created(uri).body(new AddressDTO(address));
 	}
